@@ -20,7 +20,7 @@
 	<project path="meta-containers" name="meta-containers" remote="aglexport" revision="master" />
 
 	<!-- distro Layers -->
-	<project path="meta-container-host-example" name="meta-container-host-example" remote="aglexport" revision="master" />
+	<project path="meta-container-guest-example" name="meta-container-guest-example" remote="aglexport" revision="master" />
 
 	<!-- bsp Layers -->
 	<project path="meta-renesas" name="meta-renesas" remote="renesas-rcar" revision="refs/tags/thud-Yocto-v3.21.0" />
