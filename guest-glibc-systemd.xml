@@ -17,10 +17,10 @@
 	<project path="meta-linaro" name="meta-linaro" remote="linaro" revision="0a94decea3bd2504590d1637eadff9d502c19ee2" />
 
 	<!-- function Layers -->
-	<project path="meta-containers" name="meta-containers" remote="aglexport" revision="master" />
+	<project path="meta-containers" name="meta-containers" remote="aglexport" revision="master" upstream="master" />
 
 	<!-- distro Layers -->
-	<project path="meta-container-guest-example" name="meta-container-guest-example" remote="aglexport" revision="master" />
+	<project path="meta-container-guest-example" name="meta-container-guest-example" remote="aglexport" revision="master" upstream="master" />
 
 	<!-- bsp Layers -->
 	<project path="meta-renesas" name="meta-renesas" remote="renesas-rcar" revision="refs/tags/thud-Yocto-v3.21.0" />
