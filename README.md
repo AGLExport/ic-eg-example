@@ -9,7 +9,7 @@ Currently using R-CarGen3 BSP 3.21 for thud release.
 ### Clone build tree.
 
 Move to build directry  
-imagetype := host.xml, guest-glibc-systemd.xml, guest-musl-systemd  
+imagetype := host.xml, guest-glibc-systemd.xml, guest-musl-systemd.xml  
 
 	export WORK=`pwd`  
 	repo init -u https://github.com/AGLExport/ic-eg-example.git -m imagetype  
@@ -38,37 +38,56 @@ You should see the following files:
 	cd $WORK  
 	source poky/oe-init-build-env  
 
-### Prepare default configuration files.  
 
-	cp $WORK/meta-renesas/meta-rcar-gen3/docs/sample/conf/m3ulcb/poky-gcc/mmp/*.conf ./conf/  
-	cd $WORK/build  
-	cp conf/local-wayland.conf conf/local.conf  
+### How to build
 
-### Edit bblayers.conf with layer requirements:
+#### host environment
 
-	  ${TOPDIR}/../meta-openembedded/meta-networking \  
-	  ${TOPDIR}/../meta-openembedded/meta-python \  
-	  ${TOPDIR}/../meta-openembedded/meta-filesystems \  
-	  ${TOPDIR}/../meta-virtualization \  
-	  ${TOPDIR}/../meta-container-host \  
-	  ${TOPDIR}/../meta-container-host/boardspecific/meta-container-renesas \  
+Copy bblayers.conf and local.conf to conf directry.  
 
+	cp $WORK/meta-container-host-example/files/m3ulcb/*.conf ./conf/  
 
-### Edit local.conf with evaluation packages requirements:
+Build host environment.  
 
-	DISTRO_FEATURES_append = " use_eva_pkg"  
-	
-	DISTRO_FEATURES_append = " virtualization"  
-	IMAGE_INSTALL_append = " lxc nano "  
-	#INHERIT += "rm_work"  
+##### host-image-minimal : under development
 
-### Start the build
+Minimum image of container host based on core-image-minimal from Yocto.  It's using systemd. 
 
-	bitbake core-image-minimal  
+	bitbake host-image-minimal  
+
+##### host-image-weston: available
+Container host image based on core-image-weston supporting weston compositor.
+
+This image support a guest image including graphics application. ex. guest-image-wayland.
+
+It's using systemd.
+
+	bitbake host-image-weston  
 
 
+#### guest environment (using guest-glibc-systemd.xml)
 
-## Building the BSP for QEMU
+Copy bblayers.conf and local.conf to conf directry.  
+
+	cp $WORK/meta-container-guest-example/files/m3ulcb/*.conf ./conf/  
+
+Build host environment.  
+
+##### guest-image-minimal : under development
+
+	bitbake guest-image-minimal  
+
+
+##### guest-image-wayland : under development
+
+	bitbake guest-image-wayland  
+
+
+### Install to SD card
+
+TBD
+
+## Building the BSP for H3 Starter Kit
 
 TBD
 
