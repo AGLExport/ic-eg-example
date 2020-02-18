@@ -1,15 +1,16 @@
-# Container exsample images repo
+# Container example images repo
 
 This image is based on yocto thud release.  
 
-## Building the BSP for M3 Starter Kit
+----
+## Building the Container exsample for M3 Starter Kit
 
 Currently using R-CarGen3 BSP 3.21 for thud release.  
 
 ### Clone build tree.
 
 Move to build directry  
-imagetype := host.xml, guest-glibc-systemd.xml, guest-musl-systemd.xml  
+imagetype := *host.xml*, *guest-glibc-systemd.xml*, *guest-musl-systemd.xml*  
 
 	export WORK=`pwd`  
 	repo init -u https://github.com/AGLExport/ic-eg-example.git -m imagetype  
@@ -82,13 +83,58 @@ Build host environment.
 
 	bitbake guest-image-wayland  
 
-
+---
 ### Install to SD card
 
-TBD
+$MEDIA_DIR indicates the directory where the SD card is mounted.  
 
-## Building the BSP for H3 Starter Kit
+#### 1st step: host image
 
-TBD
+Please select one of the host images.  
+
+##### host-image-minimal : under development
+
+Extract host-image-weston archive and copy the DTB file.  
+
+	cd $MEDIA_DIR
+	sudo tar xvjf /path/to/host/build/tmp/deploy/images/m3ulcb/host-image-weston-m3ulcb.tar.bz2
+	sudo cp /path/to/host/build/tmp/deploy/images/m3ulcb/r8a7796-m3ulcb.dtb ./boot/
+
+##### host-image-weston: available
+
+Extract host-image-weston archive and copy the DTB file.  
+
+	cd $MEDIA_DIR
+	sudo tar xvjf /path/to/host/build/tmp/deploy/images/m3ulcb/host-image-weston-m3ulcb.tar.bz2
+	sudo cp /path/to/host/build/tmp/deploy/images/m3ulcb/r8a7796-m3ulcb.dtb ./boot/
+
+
+#### 2nd step: guest images
+
+Can install any number of guest images.  
+**Attention : Some guests depend on a specific host image.  ex. guest-image-wayland depends on host-image-weston.**  
+
+##### guest-image-minimal : under development
+
+TBD  
+
+
+##### guest-image-wayland : under development
+
+Install guest image
+
+	cd $MEDIA_DIR/lxc/guests
+	sudo mkdir guest-wayland
+	cd guest-wayland
+	sudo tar xvjf /path/to/guest/build/tmp/deploy/images/m3ulcb-guest/guest-image-wayland-m3ulcb-guest.tar.bz2
+
+Install agl-container-manager config
+
+	sudo cp /path/to/guest/meta-container-guest-example/files/configs/guest-wayland.json $MEDIA_DIR/lxc/conf/
+
+
+## Building the Container exsample for H3 Starter Kit
+
+TBD  
 
 
